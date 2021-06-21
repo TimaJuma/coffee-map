@@ -74,7 +74,9 @@ const Map = () => {
           )} */}
         </>
       </GoogleMap>
-      {coffeeshop && <Menu shop={coffeeshop} />}
+      <div className="menu-wrapper">
+        {coffeeshop && <Menu shop={coffeeshop} />}
+      </div>
     </div>
   );
 };
