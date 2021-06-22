@@ -28,10 +28,7 @@ const Map = () => {
   });
 
   const [coffeeshop, selectCoffeeshop] = React.useState(null);
-  const onCoffeeClick = React.useCallback((shop) => {
-    console.log("onCofeeClick", shop);
-    // selectCoffeeshop();
-  }, []);
+  const [selected, setSelected] = React.useState(null);
 
   if (loadError) return "Error loading maps";
 
@@ -53,6 +50,7 @@ const Map = () => {
                 lat: shop.coordinates.lat,
                 lng: shop.coordinates.lng,
               }}
+              onMouseOut={() => setSelected(shop)}
               onClick={() => selectCoffeeshop(shop)}
               icon={{
                 url: `/cup.svg`,
@@ -61,17 +59,17 @@ const Map = () => {
               label={shop.name}
             />
           ))}
-          {/* {coffeeshop && (
+          {selected ? (
             <InfoWindow
               position={{
-                lat: coffeeshop.coordinates.lat,
-                lng: coffeeshop.coordinates.lng,
+                lat: selected.coordinates.lat,
+                lng: selected.coordinates.lng,
               }}
-              onCloseClick={() => selectCoffeeshop(null)}
+              onCloseClick={() => setSelected(null)}
             >
-              {coffeeshop.name}
+              <div> Shop: {selected.name}</div>
             </InfoWindow>
-          )} */}
+          ) : null}
         </>
       </GoogleMap>
       <div className="menu-wrapper">
